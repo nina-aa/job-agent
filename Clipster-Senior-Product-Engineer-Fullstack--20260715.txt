@@ -1,0 +1,28 @@
+Senior Product Engineer (Fullstack) @ Clipster
+https://remotive.com/remote-jobs/software-development/senior-product-engineer-fullstack-2091062
+
+Your Name
+Your City, Country
+your.email@example.com
++00 000 0000000
+github.com/you
+
+20 May 2024
+
+Hiring Team
+Clipster
+
+Dear Hiring Team,
+
+I am writing to express my keen interest in the Senior Product Engineer (Fullstack) position at Clipster, which I discovered on Remotive. As a final-year BSc (Information Systems) student, my academic and project work has equipped me with a robust analytical toolkit and a practical approach to leveraging data for operational and product improvements.
+
+My core technical proficiency spans Python, SQL, and Excel, alongside practical experience with APIs & JSON for data integration. I am adept at data cleaning, basic statistical analysis, A/B testing, and developing dashboards using tools like Looker and Tableau to distil complex information into actionable insights. These skills, particularly my experience in understanding system performance and user behaviour through data, I believe would be valuable in a product engineering environment focused on data-driven decision-making and continuous iteration.
+
+My project portfolio demonstrates a clear bias to action and a structured approach to problem-solving. For instance, I developed a courier ETA predictor that achieved a 14% improvement in MAE against the baseline, showcasing my ability to apply statistical methods to real-world challenges. Additionally, I automated weekly operational KPIs, resulting in two hours of saved effort per week, highlighting my commitment to efficiency and process optimisation. My work on classifying support tickets, achieving a precision of 0.86, also reflects my foundational understanding of analytical modelling, which could translate effectively to the AI/ML aspects of product development.
+
+While my current focus is in data and operations analysis, I am keen to apply my structured thinking, concise writing, and data-driven approach to engineering challenges at Clipster. I am confident in my ability to quickly adapt and contribute to your team, bringing a unique perspective on product development informed by a strong analytical foundation and a focus on impactful solutions.
+
+I am available for part-time work immediately and will be available full-time from June 2026. Thank you for considering my application. I look forward to the possibility of discussing how my skills and analytical rigour could benefit Clipster.
+
+Yours sincerely,
+Your Name
