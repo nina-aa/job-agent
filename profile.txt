@@ -1,0 +1,7 @@
+Student data/ops analyst profile: final-year BSc (Information Systems).
+Core skills: Python, SQL, Excel, basic statistics, A/B testing, dashboards (Looker/Tableau),
+APIs & JSON, data cleaning, stakeholder comms.
+Projects: (1) Built a courier ETA predictor (MAE -14% vs baseline),
+(2) Automated weekly ops KPIs (2 hrs saved/week), (3) Classified support tickets (precision 0.86).
+Strengths: concise writing, structured thinking, bias-to-action.
+Availability: part-time now, full-time from June 2026. Location: Remote.

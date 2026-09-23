@@ -1,0 +1,52 @@
+{
+  "job": {
+    "source": "Remotive",
+    "title": "Python Developer",
+    "company": "Acme Data",
+    "location": "Europe",
+    "url": "https://example.com/job",
+    "tags": [
+      "python",
+      "sql"
+    ],
+    "description": "Build and maintain data pipelines and internal tooling in Python and SQL."
+  },
+  "cases": [
+    {
+      "id": "clean-eta-kpi",
+      "fabricated": false,
+      "note": "only profile facts",
+      "letter": "Dear Hiring Team,\n\nI am writing to apply for the Python Developer role at Acme Data. I am a final-year BSc student in Information Systems. I built a courier ETA predictor that improved MAE by 14% against the baseline, and I automated weekly operations KPIs, saving about two hours a week. Python and SQL are my core tools. I am available part-time now and full-time from June 2026, and would welcome a conversation.\n\nYours sincerely,\nYour Name"
+    },
+    {
+      "id": "clean-tickets",
+      "fabricated": false,
+      "note": "only profile facts, different projects",
+      "letter": "Dear Hiring Team,\n\nI am writing to apply for the Python Developer role at Acme Data. My core skills are Python, SQL and data cleaning. I classified support tickets with a precision of 0.86 and I am comfortable working with APIs and JSON. I write concisely and communicate well with stakeholders. I am available part-time now and full-time from June 2026, and would welcome a conversation.\n\nYours sincerely,\nYour Name"
+    },
+    {
+      "id": "fake-degree",
+      "fabricated": true,
+      "note": "invented MSc",
+      "letter": "Dear Hiring Team,\n\nI am writing to apply for the Python Developer role at Acme Data. I hold an MSc in Computer Science from KTH and I am completing a BSc in Information Systems. I built a courier ETA predictor and I work daily in Python and SQL. I am available part-time now and full-time from June 2026, and would welcome a conversation.\n\nYours sincerely,\nYour Name"
+    },
+    {
+      "id": "fake-metric",
+      "fabricated": true,
+      "note": "profile says MAE -14%, letter claims a 40% cost cut",
+      "letter": "Dear Hiring Team,\n\nI am writing to apply for the Python Developer role at Acme Data. I am a final-year BSc student in Information Systems. My courier ETA predictor reduced delivery costs by 40%, and I automated weekly operations KPIs. I work in Python and SQL. I am available part-time now and full-time from June 2026, and would welcome a conversation.\n\nYours sincerely,\nYour Name"
+    },
+    {
+      "id": "fake-employer",
+      "fabricated": true,
+      "note": "invented employer",
+      "letter": "Dear Hiring Team,\n\nI am writing to apply for the Python Developer role at Acme Data. I spent three years at Spotify as a backend engineer building Python services, alongside my BSc in Information Systems. I also automated weekly operations KPIs. I am available part-time now and full-time from June 2026, and would welcome a conversation.\n\nYours sincerely,\nYour Name"
+    },
+    {
+      "id": "clean-realistic-long",
+      "fabricated": false,
+      "note": "full-length letter that the first verifier prompt wrongly flagged (paraphrases, job title, enthusiasm)",
+      "letter": "Dear Hiring Manager,\n\nI am writing to express my interest in the Python Developer role at Acme Data, as advertised on Remotive. As a final-year BSc Information Systems student with a focus on data operations, I am eager to apply my technical proficiency to your data initiatives.\n\nMy academic projects demonstrate a bias-to-action and a commitment to delivering measurable outcomes. I recently developed a courier ETA predictor that reduced mean absolute error by 14% compared to the baseline, highlighting my ability to build predictive models that provide tangible value. Furthermore, I automated weekly operations KPIs to save two hours of manual effort each week and classified support tickets with a precision of 0.86. These experiences have refined my ability to perform complex data cleaning and generate actionable insights from raw data.\n\nI possess a strong foundation in Python, SQL and statistics, complemented by practical experience in A/B testing and dashboard development using Looker and Tableau. My technical toolkit includes working with APIs and JSON structures. My approach is defined by structured thinking and concise communication, ensuring that technical outputs remain clearly aligned with broader project objectives.\n\nWorking in a remote capacity aligns well with my professional habits. I am keen to contribute to the data challenges at Acme Data and I am eager to learn any tools I have not yet used.\n\nI am currently available for part-time engagement, with full-time availability commencing in June 2026. Thank you for your time and consideration. I would welcome the opportunity to discuss how my skills can contribute to your team.\n\nYours faithfully,\nYour Name"
+    }
+  ]
+}

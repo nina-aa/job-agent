@@ -1,0 +1,31 @@
+$ python -m job_agent.main --search-term data --location Europe
+
+Searching for 'data' in 'Europe'...
+
+The agent recommends writing letters for:
+  [0] 8/10  Software Engineer - Data @ Dune (Europe, USA)
+        This is a rare 'Level: Any' role in a data-focused company that matches your technical stack well.
+        https://jobicy.com/jobs/149499-software-engineer-data
+Write letters for which? (e.g. 0,2 / all / none): 0
+
+=== Software Engineer - Data @ Dune (draft round 1) ===
+[full letter -- see examples/sample_cover_letter.txt for the approved text]
+
+[a]pprove / [r]eject with feedback / [s]kip: r
+Feedback for the redraft: mention that I am eager to learn on the job
+
+=== Software Engineer - Data @ Dune (draft round 1) ===
+[redrafted letter, now mentions being eager to learn on the job]
+
+[a]pprove / [r]eject with feedback / [s]kip: a
+Saved: applications\Dune-Software-Engineer---Data-20260923.txt
+Transcript: applications\transcript-20260923-111436.md
+
+node       calls  tokens in  tokens out  llm secs
+score          1       1725         488      4.06
+draft          2       1352         890     14.73
+verify         2       1862         952     10.54
+total          5       4939        2330     29.33
+models used: gemini-3.1-flash-lite x5
+fallback hops (failed attempts before a success): 0
+graph wall time excluding human input: 34.21s

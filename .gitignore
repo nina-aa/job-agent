@@ -1,0 +1,8 @@
+.env
+applications/
+__pycache__/
+.pytest_cache/
+.venv/
+chat.txt
+learned.txt
+.claude

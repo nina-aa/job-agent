@@ -1,0 +1,124 @@
+What to learn from this project
+================================
+A record of the LangGraph and other concepts this project is meant to teach, written
+during the build. Code references point at job_agent/ as of the FastAPI milestone.
+
+LANGGRAPH CORE
+--------------
+
+1. A graph is nodes + edges over a shared state object.
+   Nodes: search, score, pick, next_job, draft, verify, review, save (graph.py).
+   Each node is a plain function: (state) -> dict of the fields it's changing.
+   It does NOT return the whole state, just the delta.
+
+2. Two kinds of edges.
+   - Fixed edge (g.add_edge): always the same next node.
+     START->search, next_job->draft, draft->verify.
+   - Conditional edge (g.add_conditional_edges): a plain Python function reads state
+     and returns the next node's name as a string.
+     after_search, after_score, next_or_end, after_verify, after_review.
+   Rule of thumb: put the branch on the edge INTO a node, not inside every node that
+   could theoretically need it. next_job->draft looks like it should be conditional
+   (what if queue is empty?) but isn't, because pick's and save's conditional edges
+   already guaranteed queue is non-empty before routing to next_job. By the time
+   next_job runs, popping queue[0] is safe.
+
+3. State is a schema (TypedDict here), not just a dict.
+   class State(TypedDict, total=False): declares every field LangGraph is allowed to
+   see (shortlist, feedback, attempts, ...). Why bother instead of a plain dict:
+   - editor/type-checker catches typos in field names
+   - it's the object LangGraph inspects to find per-field merge rules (see reducers)
+   Could also be a dataclass or Pydantic model; LangGraph supports those too.
+
+4. Default merge rule: new value overwrites old value.
+   A node returning {"letter": new_text} replaces state["letter"]. Correct for
+   things where you only want the latest (letter, verdict, job).
+
+5. Reducers: Annotated[list[dict], operator.add].
+   For calls and transcript we want every node's contribution KEPT across the whole
+   run, not overwritten. Annotated[SomeType, metadata] is plain Python typing that
+   attaches metadata to a type hint; LangGraph reads that metadata as "here is the
+   merge function for this field". operator.add on two lists is just list
+   concatenation. Without this, every node touching `calls` would need to manually
+   write state["calls"] + [record] and duplicate that logic everywhere.
+
+6. interrupt() and Command(resume=...) -- the human-in-the-loop mechanism.
+   pick() and review() call interrupt(payload). This raises internally; LangGraph
+   catches it, saves a checkpoint, and returns the payload to the caller
+   (graph.invoke returns a result with "__interrupt__" set instead of finishing).
+   Later, graph.invoke(Command(resume=answer), config) re-enters the graph at that
+   same node. interrupt() now returns `answer` instead of raising, and the rest of
+   the function body runs.
+
+   CORRECTION MADE IN THIS CHAT (important, easy to get backwards):
+   The checkpointer avoids re-running the graph from the very start -- search and
+   score do NOT re-run when pick() resumes, their results are already saved.
+   But it does NOT mean nothing re-runs at all. Resuming re-executes the interrupted
+   NODE from its own first line, every time. So:
+       def pick(state):
+           chosen = interrupt(...)   # <-- this line runs again on every resume
+           ...
+   Anything with a side effect placed BEFORE interrupt() in the same node would fire
+   again on each resume. That's why save_letter() only happens in a separate `save`
+   node, after review()'s interrupt has already resolved -- never before an
+   interrupt in the same function body.
+
+7. Checkpointer = what makes interrupt/resume possible at all.
+   InMemorySaver() snapshots state after every node, keyed by thread_id. One CLI run
+   or one API run_id = one thread_id. Swap InMemorySaver for a SQLite/Postgres
+   checkpointer and the same graph code survives a process restart -- nothing else
+   about the graph changes. This project deliberately stayed in-memory (small
+   project, single process, runs don't need to survive a restart).
+
+8. Mermaid export is just a serialization, not a separate system.
+   graph.get_graph().draw_mermaid() reads the compiled graph's own nodes/edges and
+   prints them as Mermaid text (a diagrams-as-code syntax: nodes + edges + labels,
+   not a general charting library -- it doesn't do bar/line charts, it draws graph
+   structures, which is exactly what a LangGraph graph is). GitHub/most Markdown
+   viewers render that text as a flowchart automatically.
+
+OTHER TECHNIQUES IN THIS REPO
+------------------------------
+
+9. Structured output over free text (models.py, llm.py parse_json()).
+   Fit / FitList / ClaimCheck / VerifierOutput are Pydantic models the LLM reply
+   gets parsed into, instead of parsing prose with regex. The verifier fix in this
+   project came from changing WHAT the model is asked to produce: instead of asking
+   it to self-report "is this claim supported? yes/no" (which it did too eagerly),
+   it's asked to quote the PROFILE evidence for each claim, and "unsupported" is
+   derived in code from whether that evidence field is empty/"none". Asking a model
+   to justify itself in the output schema tends to produce more reliable structured
+   output than asking it to self-report a verdict directly.
+
+10. LLM fallback chain as its own abstraction (llm.py, LLM.complete()).
+    Separates "try model X" from "what counts as a failure worth a cooldown vs.
+    permanently dropping the model for this session". GeminiLLM._classify() maps
+    Gemini-specific error codes (429 -> rate_limited -> cooldown, 404 -> unavailable
+    -> drop for the session) onto that generic policy. The chain is ordered cheapest
+    -> most expensive on purpose (2.5-flash-lite first, 2.5-pro last), since free
+    tiers meter per model.
+
+11. Observability as data flowing through the same state mechanism, not print()
+    statements. Every llm.complete() call returns (result, record); record flows
+    through the `calls` reducer exactly like any other state update. metrics.py
+    just summarizes what's already in state. Three call sites total: score(),
+    draft(), verify() -- nothing else in the graph talks to an LLM. search() is
+    plain HTTP to job board APIs; the conditional-edge functions are pure Python
+    reading already-computed state.
+
+12. Evals as a small targeted regression test, not a benchmark.
+    evals/cases.json: 6 letters (some clean, some with a planted fabrication) that
+    test one specific failure mode -- does the verifier catch fabrications without
+    also crying wolf on clean text. Not a claim about general letter quality. This
+    is what caught the false-positive regression when the verifier prompt was first
+    written too strictly.
+
+13. Wrapping a stateful graph behind a stateless-looking HTTP API (api.py).
+    snapshot()/pending_of() reconstruct "what is this run waiting for" from the
+    checkpointer on every request, rather than keeping a separate dict of run state
+    in the server process. The API is a thin translation layer over LangGraph's own
+    state/interrupt mechanism, not a second source of truth. This is also why the
+    CLI (main.py) and the API can share build_graph() unchanged -- both are just
+    different front ends calling invoke()/Command(resume=...) on the same graph.
+
+

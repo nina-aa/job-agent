@@ -1,0 +1,20 @@
+Software Engineer - Data @ Dune
+https://jobicy.com/jobs/149499-software-engineer-data
+
+Your Name | Your City, Country | your.email@example.com | +00 000 0000000 | github.com/you
+
+Dear Hiring Team at Dune,
+
+I am writing to express my interest in the Software Engineer – Data position at Dune. As a final-year BSc Information Systems student, I have followed Dune’s mission to democratise access to on-chain data and believe my technical background aligns well with the requirements of your analytics platform. I am eager to learn on the job and contribute to the collaborative environment that defines your team.
+
+My academic and project work has focused on building robust data pipelines and extracting actionable insights from complex datasets. My experience includes proficient use of Python, SQL, and Excel, alongside practical applications of basic statistics and A/B testing. I am adept at creating interactive dashboards using Looker and Tableau and have extensive experience working with APIs and JSON to facilitate data ingestion.
+
+I pride myself on a structured approach to problem-solving and a consistent bias-to-action. My recent projects demonstrate these strengths: I developed a courier ETA predictor that reduced the Mean Absolute Error by 14 percent compared to the baseline, automated weekly operations KPIs to save two hours of manual effort per week, and built a support ticket classification system achieving 0.86 precision. These experiences have refined my ability to clean data effectively and communicate technical findings to stakeholders clearly and concisely.
+
+I am particularly drawn to Dune because of the scale and transparency of your multi-chain platform. Contributing to a team that empowers developers and investors to understand the frontiers of finance is an opportunity that motivates me. I am confident that my technical proficiency, combined with my ability to translate complex data into clear, automated processes, would allow me to make a meaningful contribution to your engineering operations.
+
+I am currently available for part-time work and will be available for a full-time role starting in June 2026. I am comfortable working in a remote capacity across European and US time zones. Thank you for your time and consideration. I would welcome the opportunity to discuss how my skills can support your mission.
+
+Yours faithfully,
+
+Your Name
